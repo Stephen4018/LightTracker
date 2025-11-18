@@ -1,0 +1,54 @@
+﻿@model LightUsageTracker_Core.Core.Entities.Users
+
+@{
+    ViewData["Title"] = "Edit User";
+    var computed = (ViewBag.HasBeenComputed as bool?) ?? false;
+
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-header bg-warning text-white text-center">
+                <h4 class="mb-0">✏️ Edit User</h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Room_No" class="form-label fw-bold"></label>
+                        <input asp-for="Room_No" class="form-control" readonly />
+                        <span asp-validation-for="Room_No" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label asp-for="PresentLightUsage" class="form-label fw-bold"></label>
+                        <input asp-for="PresentLightUsage" class="form-control" readonly="@(computed ? "readonly" : null)" />
+                        <span asp-validation-for="PresentLightUsage" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PastLightUsage" class="form-label fw-bold"></label>
+                        <input asp-for="PastLightUsage" class="form-control" readonly="@(computed ? "readonly" : null)" />
+                        <span asp-validation-for="PastLightUsage" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="UserName" class="form-label fw-bold"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            💾 Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

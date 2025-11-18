@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LightUsageTracker_Core.Core.Entities.LightUsage>
+
+@{
+    ViewData["Title"] = "Computation Results";
+    var batchId = ViewBag.BatchId as string;
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="text-primary">
+            Computation Batch No.:
+            <span class="fw-bold text-dark">@batchId</span>
+        </h3>
+
+        <a asp-action="DownloadExcel" asp-route-batchId="@batchId"
+           class="btn btn-success">
+            <i class="bi bi-download"></i> Download as Excel
+        </a>
+    </div>
+
+    <table class="table table-striped table-bordered shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>User Name</th>
+                <th>Kilowatt / Hour</th>
+                <th>Amount (₦)</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.User.UserName</td>
+                        <td>@item.KilowattPerHour KW/H</td>
+                        <td>@item.Amount.ToString("N2")</td>
+                        <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        No computations found for this batch.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

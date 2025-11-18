@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LightUsageTracker_Core.Core.Entities.Users>
+
+@{
+    ViewData["Title"] = "Light Bill Computation";
+}
+
+<h2>Light Bill Computation</h2>
+
+<form asp-action="Index" method="post">
+    <div class="mb-3">
+        <label class="fw-bold">Kilowatt Rate (₦ per kWh)</label>
+        <input type="number" step="0.01" name="kilowattRate" class="form-control" required />
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Username</th>
+                <th>Room No</th>
+                <th>Past Usage</th>
+                <th>Enter Present Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Room_No</td>
+                    <td>@user.PresentLightUsage KW/H</td>
+                    <td>
+                        <input type="number" name="newUsages[@user.UserId]" class="form-control" step="0.01" required />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary btn-lg">Compute Bills</button>
+</form>
+
